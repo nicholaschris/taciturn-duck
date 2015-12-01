@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" ng-app="phonecatApp">
+<head>
+  <meta charset="utf-8">
+  <title>Google Phone Gallery</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/controllers.js"></script>
+  <script type="text/javascript">
+
+  </script>
+</head>
+<body ng-controller="PhoneListCtrl">
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <!--Sidebar content-->
+                <h4 class="username text-center">Hans Van Dam <small><a href="#">(Logout)</a></small></h4>
+                <li id="searchbar">
+                  <div class='search-div'>
+                    Search: <input ng-model="query">
+                  </div>
+                  <div class='search-div'>
+                  Sort by:
+                    <select ng-model="orderProp">
+                      <option value="name">Alphabetical</option>
+                      <option value="age">Newest</option>
+                    </select>
+                  </div>
+                </li>
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Menu
+                    </a>
+                </li>
+                <li>
+                    <a href="#">This project has <span style="font-size:16px;color: orange">{{phones.profiles.length}}</span> people</a>
+                </li>
+                <li>
+                    <a href="#">Overview</a>
+                    <ul class="list-styled" ng-repeat="name in phones.profile_names">
+                      <li><a href="">{{ name }}</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Projects</a>
+                </li>
+                <li>
+                    <a href="#">Invites</a>
+                </li>
+                <!-- <li>{{hello}}</li> -->
+        <!--         <div id="CheckedList">
+                     <h3>Checked Items: {{getTotalCheckedItems()}}</h3>
+
+                     <h4>Checked:</h4>
+
+                    <table>
+                        <tr ng-repeat="item in checked" class="item-checked">
+                            <td><b>amount:</b> {{item.amount}} -</td>
+                            <td><b>name:</b> {{item.name}} -</td>
+                            <td> <i>this item is checked!</i>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="UncheckedList">
+                     <h3>Unchecked Items: {{getTotalItems()}}</h3>
+
+                     <h4>Unchecked:</h4>
+
+                    <table>
+                        <tr ng-repeat="item in items" class="item-unchecked">
+                            <td><b>amount:</b> {{item.amount}} -</td>
+                            <td><b>name:</b> {{item.name}} -</td>
+                            <td>
+                                <button ng-click="toggleChecked($index)">check item</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div> -->
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="sidebar affix col-md-2">
+
+
+              </div>
+              <div class="col-md-12">
+                <!--Body content-->
+<!--                 <ul>
+                  <li class="list-unstyled" ng-repeat="item in items">
+                    {{ item.amount }}
+                    {{ item.name }}
+
+                  </li>
+                </ul> -->
+                <ul class="phones">
+                  <div class="row">
+                    <li class="list-unstyled" ng-repeat="phone in phones | filter:query | orderBy:orderProp">
+                      <div class="profile-box">
+                      <div class="col-md-9">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <img class="img-responsive img-circle img-center" ng-src="{{phone.profile_image}}" style="width:150px">
+                            <!-- ng-src="img/profile_hans.jpg" -->
+                          </div>
+                          <div class="col-md-3">
+                            <h4>
+                              <b>{{phone.name}} {{ phone.surname }}</b>
+                              <span ng-if="!phone.education_set[0].profile" >
+                                <small style="color: orange">Profile inactive</small>
+                                </span>
+                              <span ng-if="phone.education_set[0].profile">
+                                <small> - {{phone.education_set[0].profile}}</small>
+                              </span>
+                              
+                              <span ng-if="phone.is_checked">&#10004;</span>
+                            </h4>
+                            <p>{{ phone.experience_set[0].name}}</p>
+                            <p>{{ phone.experience_set[1].name}}</p>
+                            <p>{{ phone.education_set[0].name}}</p>
+
+                            {{itemName}}
+                          </div>
+
+                          <div class="col-md-6"<p>{{ phone.intro | limitTo:300 }} {{ "..." }}</p></div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                        <div id="AddItem">
+                          <input type="hidden" value={{phone.education_set[0].profile}} ng-model="itemAmount">
+                          <input type="hidden" value="{{phone.name}}" ng-model="itemName">
+                          <br/>
+                          <!-- <button >Add to list</button> -->
+<!--                           <button type="submit" ng-click="addItem()" class="btn btn-primary btn-threehundred">Add to Project</button> -->
+                          <button ng-click="insertRecord(phone, phone.education_set[0].profile, phone.name, phone.surname)" class="btn btn-primary btn-threehundred">Add to project</button>
+                          <button class="btn btn-warning btn-threehundred" ng-click="removeRecord(phone, phone.education_set[0].profile, phone.name, phone.surname)">Remove</button>
+                        </div>
+                        </div>
+                      </div>
+                    </li>
+                   </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>
